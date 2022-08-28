@@ -1,0 +1,16 @@
+
+ARG FEDORA_VERSION=latest
+FROM registry.fedoraproject.org/fedora-toolbox:${FEDORA_VERSION}
+
+ENV NAME=zsh VERSION=1
+LABEL com.github.containers.toolbox="true" \
+    com.github.debarshiray.toolbox="true"
+
+RUN dnf install -y \
+    zsh \
+    sqlite \
+    vim 
+
+RUN dnf clean all
+
+CMD /usr/bin/zsh
