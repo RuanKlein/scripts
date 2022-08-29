@@ -9,7 +9,8 @@ LABEL com.github.containers.toolbox="true" \
 RUN dnf install -y \
     zsh \
     sqlite \
-    vim 
+    vim \
+    xclip
 
 RUN dnf clean all
 
