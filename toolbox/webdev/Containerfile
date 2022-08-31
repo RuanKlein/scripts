@@ -1,0 +1,30 @@
+FROM localhost/base
+
+ENV NAME=webdev VERSION=1
+LABEL com.github.containers.toolbox="true" \
+    com.github.debarshiray.toolbox="true"
+    
+ARG JAVA_VERSION=17
+
+RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc
+
+COPY vscode.repo /etc/yum.repos.d
+
+RUN dnf update -y \
+    && dnf install -y \
+    mesa-dri-drivers \
+    code \
+    community-mysql \
+    python3-pip \
+    php-cli \
+    java-${JAVA_VERSION}-openjdk-headless \
+    java-${JAVA_VERSION}-openjdk-devel \
+    make \
+    automake \
+    gcc \
+    gcc-c++ \
+    kernel-devel
+
+RUN dnf clean all
+
+CMD /usr/bin/zsh
