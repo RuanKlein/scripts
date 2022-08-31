@@ -1,12 +1,12 @@
-
 ARG FEDORA_VERSION=latest
 FROM registry.fedoraproject.org/fedora-toolbox:${FEDORA_VERSION}
 
-ENV NAME=zsh VERSION=1
+ENV NAME=base VERSION=1
 LABEL com.github.containers.toolbox="true" \
     com.github.debarshiray.toolbox="true"
 
-RUN dnf install -y \
+RUN dnf update -y \
+    && dnf install -y \
     zsh \
     sqlite \
     vim \
