@@ -1,7 +1,6 @@
 ARG FEDORA_VERSION=latest
 FROM registry.fedoraproject.org/fedora-toolbox:${FEDORA_VERSION}
 
-ENV NAME=base VERSION=1
 LABEL com.github.containers.toolbox="true" \
     com.github.debarshiray.toolbox="true"
 

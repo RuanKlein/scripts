@@ -1,9 +1,8 @@
 FROM localhost/base
 
-ENV NAME=webdev VERSION=1
 LABEL com.github.containers.toolbox="true" \
     com.github.debarshiray.toolbox="true"
-    
+
 ARG JAVA_VERSION=17
 
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc
