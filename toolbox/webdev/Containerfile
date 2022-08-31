@@ -22,7 +22,9 @@ RUN dnf update -y \
     automake \
     gcc \
     gcc-c++ \
-    kernel-devel
+    kernel-devel \
+    adwaita-gtk2-theme \
+    gnome-themes-extra
 
 RUN dnf clean all
 
