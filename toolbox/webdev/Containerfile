@@ -14,6 +14,7 @@ RUN dnf update -y \
     mesa-dri-drivers \
     code \
     community-mysql \
+    python-unversioned-command \
     python3-pip \
     php-cli \
     java-${JAVA_VERSION}-openjdk-headless \
