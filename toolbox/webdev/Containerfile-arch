@@ -12,6 +12,7 @@ RUN sed -i 's/^\(NoExtract\)/#\1/g' /etc/pacman.conf
 
 RUN pacman --noconfirm -Syu \
   && pacman --noconfirm -S \
+  # Reinstall glibc to force install locate package
   glibc \
   base-devel \
   openssh \
@@ -25,20 +26,28 @@ RUN pacman --noconfirm -Syu \
   python \
   python-pip \
   jdk${JAVA_VERSION}-openjdk \
+  # To get mysql and mysqldump commands
   mariadb-clients \
+  # For theme integration with host
   gnome-themes-extra \
   adwaita-icon-theme \
-  libadwaita
+  libadwaita \
+  # For xdg-open integration with flatpak apps on host
+  flatpak \
+  flatpak-xdg-utils
 
+# Configure location
 RUN sed -i "s/^#\(${LANGUAGE}\)/\1/" /etc/locale.gen \
   && echo LANG=${LANGUAGE} | tee /etc/locale.conf \
   && locale-gen
 
+# Create temporary user to use makepkg
 RUN useradd -m -s /bin/bash -d /build build \
   && echo "build ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 WORKDIR /tmp
 
+# Install yay helper
 RUN wget -c --timeout=5 ${YAY_LINK} -O PKGBUILD \
   && sudo -u build makepkg --noconfirm -cis \
   && rm -f PKGBUILD
@@ -51,6 +60,7 @@ RUN userdel -r build \
   && sudo sed -i '/^build/d' /etc/sudoers \
   && pacman --noconfirm -Scc
 
+# Configure sudo for host user
 RUN echo -en "Defaults !fqdn\n\"${USER}\" ALL = (root) NOPASSWD:ALL\n" \
   | tee /etc/sudoers.d/sudoers
 
