@@ -25,7 +25,8 @@ RUN dnf update -y \
     gcc-c++ \
     kernel-devel \
     adwaita-gtk2-theme \
-    gnome-themes-extra
+    gnome-themes-extra \
+    gdouros-symbola-fonts
 
 RUN dnf clean all
 
