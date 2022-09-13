@@ -4,8 +4,13 @@ FROM registry.fedoraproject.org/fedora-toolbox:${FEDORA_VERSION}
 LABEL com.github.containers.toolbox="true" \
     com.github.debarshiray.toolbox="true"
 
+ARG LANGPACK=en
+ARG GLIBC_LANGPACK=en
+
 RUN dnf update -y \
     && dnf install -y \
+    langpacks-${LANGPACK} \
+    glibc-langpack-${GLIBC_LANGPACK} \
     zsh \
     sqlite \
     vim \
