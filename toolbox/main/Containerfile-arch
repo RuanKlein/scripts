@@ -34,7 +34,12 @@ RUN pacman --noconfirm -Syu \
   libadwaita \
   # For xdg-open integration with flatpak apps on host
   flatpak \
-  flatpak-xdg-utils
+  flatpak-xdg-utils \
+  # mesa drivers
+  mesa \
+  mesa-utils \
+  # emoji fonts
+  noto-fonts-emoji
 
 # Configure location
 RUN sed -i "s/^#\(${LANGUAGE}\)/\1/" /etc/locale.gen \
