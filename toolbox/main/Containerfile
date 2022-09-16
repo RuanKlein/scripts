@@ -11,6 +11,10 @@ COPY vscode.repo /etc/yum.repos.d
 
 RUN dnf update -y \
     && dnf install -y \
+    https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+RUN dnf install -y \
     mesa-dri-drivers \
     code \
     community-mysql \
@@ -26,7 +30,10 @@ RUN dnf update -y \
     kernel-devel \
     adwaita-gtk2-theme \
     gnome-themes-extra \
-    gdouros-symbola-fonts
+    google-noto-emoji-fonts \
+    p7zip \
+    p7zip-plugins \
+    unrar
 
 RUN dnf clean all
 
