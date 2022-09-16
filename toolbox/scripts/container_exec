@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# Copyright © 2022 Ruan Klein
+#
+# All rights reserved
+
+get_help() {
+  local dirname="$(dirname "$0")"
+
+  echo "Usage: ln -s ${dirname}/container_exec ${dirname}/container_binary_name"
+  echo "$ container_binary_name [OPTIONS]"
+  exit 0
+}
+
+run_as_native() {
+  for binpath in $(echo $PATH | tr ':' ' '); do
+     local fullpath="${binpath}/${biname}"
+   
+     if [[ -L "$fullpath" && $(readlink -f "$fullpath") =~ /container_exec$ ]]; then
+       continue
+     fi
+     
+     if [[ -x "$fullpath" ]]; then
+     	exec "$fullpath" $*
+     fi
+  done
+
+  echo "command not found: $biname" >&2
+  exit 1
+}
+
+run_as_container() {
+  local containerfile=~/.container_name
+  local containername=$(cat $containerfile 2>/dev/null)
+  
+  if [[ -z "$containername" ]]; then
+    echo "ERROR: container name is missing" >&2
+    echo "To fix this: echo your_container_name > $containerfile" >&2
+    exit 1
+  fi
+
+  exec toolbox run -c $containername "$biname" $*
+}
+
+biname="$(basename "$0")"
+
+if [[ "$biname" == "container_exec" ]]; then
+  get_help
+fi
+
+exec=run_as_$([ -f /run/.containerenv ] && echo -n native || echo -n container)
+$exec $*
+
