@@ -3,7 +3,6 @@ FROM archlinux
 LABEL com.github.containers.toolbox="true" \
   com.github.debarshiray.toolbox="true"
 
-ARG USER
 ARG JAVA_VERSION=17
 ARG LANGUAGE=en_US.UTF-8
 ARG YAY_LINK=https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay
@@ -43,7 +42,7 @@ RUN pacman --noconfirm -Syu \
 
 # Configure location
 RUN sed -i "s/^#\(${LANGUAGE}\)/\1/" /etc/locale.gen \
-  && echo LANG=${LANGUAGE} | tee /etc/locale.conf \
+  && echo LANG=${LANGUAGE} > /etc/locale.conf \
   && locale-gen
 
 # Create temporary user to use makepkg
@@ -62,11 +61,10 @@ RUN sudo -u build \
   visual-studio-code-bin
 
 RUN userdel -r build \
-  && sudo sed -i '/^build/d' /etc/sudoers \
+  && sed -i '/^build/d' /etc/sudoers \
   && pacman --noconfirm -Scc
 
 # Configure sudo for host user
-RUN echo -en "Defaults !fqdn\n\"${USER}\" ALL = (root) NOPASSWD:ALL\n" \
-  | tee /etc/sudoers.d/sudoers
+RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toolbox
 
 CMD /usr/bin/zsh
