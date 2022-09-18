@@ -25,7 +25,6 @@ $ podman build . \
     --no-cache \
     --build-arg=JAVA_VERSION=11 \
     --build-arg=LANGUAGE=en_US.UTF-8 \
-    --build-arg=USER=$USER \
     -t main
 ```
 
