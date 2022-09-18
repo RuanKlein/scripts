@@ -32,7 +32,6 @@ $ podman build . \
 Args:
 - **JAVA_VERSION (optional)**: OpenJDK version
 - **LANGUAGE (optional)**: locale configuration
-- **USER (required)**: Home username 
 
 ## Create toolbox
 
