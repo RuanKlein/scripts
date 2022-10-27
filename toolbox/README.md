@@ -6,7 +6,7 @@ More informations about toolbox [here](https://github.com/containers/toolbox).
 
 Type:
 ```
-podman build . --build-arg=LANGPACK=en --build-arg=GLIBC_LANGPACK=en --build-arg=JAVA_VERSION=11 --env=HOSTNAME=$HOSTNAME --no-cache -t fedora
+podman build . --build-arg=LANGPACK=en --build-arg=GLIBC_LANGPACK=en --build-arg=JAVA_VERSION=11 --no-cache -t fedora
 ```
 
 Args:

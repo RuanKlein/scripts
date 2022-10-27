@@ -49,6 +49,3 @@ RUN dnf install -y \
 # Clean packages
 RUN dnf clean all
 
-# FIXME: workaround to fix low quality icons in GNOME
-# https://github.com/containers/toolbox/issues/586
-RUN echo "sudo hostname $HOSTNAME" > /etc/profile.d/hostname.sh
