@@ -1,4 +1,4 @@
-FROM fedora-toolbox:36
+FROM fedora-toolbox:37
 
 LABEL com.github.containers.toolbox="true" \
     com.github.debarshiray.toolbox="true"
