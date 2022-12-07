@@ -25,6 +25,7 @@ RUN dnf install -y \
     zsh \
     sqlite \
     vim \
+    flatpak-xdg-open \
     xclip \
     mesa-dri-drivers \
     code \
