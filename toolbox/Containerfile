@@ -3,8 +3,6 @@ FROM fedora-toolbox:37
 LABEL com.github.containers.toolbox="true" \
     com.github.debarshiray.toolbox="true"
 
-ARG LANGPACK=en
-ARG GLIBC_LANGPACK=en
 ARG JAVA_VERSION=17
 
 # Configure vscode repository
@@ -18,14 +16,15 @@ RUN dnf update -y \
     https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
+# Install compilers
+RUN dnf groupinstall -y 'C Development Tools and Libraries'
+
 # Install packages
 RUN dnf install -y \
-    langpacks-${LANGPACK} \
-    glibc-langpack-${GLIBC_LANGPACK} \
     zsh \
     sqlite \
+    flatpak \
     vim \
-    flatpak-xdg-open \
     xclip \
     mesa-dri-drivers \
     code \
@@ -35,11 +34,6 @@ RUN dnf install -y \
     php-cli \
     java-${JAVA_VERSION}-openjdk-headless \
     java-${JAVA_VERSION}-openjdk-devel \
-    make \
-    automake \
-    gcc \
-    gcc-c++ \
-    kernel-devel \
     adwaita-gtk2-theme \
     gnome-themes-extra \
     google-noto-emoji-fonts \
