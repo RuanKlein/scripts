@@ -39,7 +39,9 @@ RUN dnf install -y \
     google-noto-emoji-fonts \
     p7zip \
     p7zip-plugins \
-    unrar
+    unrar \
+    exa \
+    bat
 
 # Clean packages
 RUN dnf clean all
